@@ -3,14 +3,14 @@
 {% block content %}
 <div class="container">
     <div class="row text-center">
-        <div class="col-3">
+        <div class="col-6">
             <div class="card mb-4 box-shadow">
                 <div class="card-header">
                     <h4 class="my-0 font-weight-normal">{{ product.name }}</h4>
                 </div>
                 <div class="card-body">
                     <p class="text-start">{{ product.description }}</p>
-                    <img class="card-img-top" src="{{ product.photo | media_filter }}">
+                    <img src="{{ product.photo | media_filter }}" class="rounded mx-auto d-block" width="300" height="200">
                     <h1 class="card-title pricing-card-title">{{ product.price }} RUB </h1>
                     <a class="btn btn-primary" href="#" role="button">Купить</a>
                     <a class="btn btn-primary" href="{% url 'catalog:products_list'%}" role="button">Назад</a>
