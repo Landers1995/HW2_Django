@@ -10,7 +10,7 @@
                     <h4 class="my-0 font-weight-normal">{{ product.name }}</h4>
                 </div>
                 <div class="card-body">
-                    <p class="text-truncate">{{ product.description }}</p>
+                    <p class="text-start">{{ product.description | slice:100 }}</p>
                     <img class="card-img-top" src="{{ product.photo | media_filter }}" width="300" height="200">
                     <h1 class="card-title pricing-card-title"></h1>
                     <a class="btn btn-primary" href="{% url 'catalog:product_detail' product.pk %}" role="button">Подробно</a>
