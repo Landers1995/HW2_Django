@@ -15,8 +15,16 @@
                     <p class="text-start">{{ object.description }}</p>
                     <img class="card-img-top" src="{{ product.photo | media_filter }}" width="300" height="200">
                     <h1 class="card-title pricing-card-title"></h1>
-                    <a class="btn btn-primary" href="{% url 'articles:view' %}" role="button">Подробно</a>
-                    <a class="btn btn-primary" href="{% url 'articles:edit' %}" role="button">Изменить</a>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a class="btn btn-sm btn-outline-secondary" href="{% url 'articles:view' object.id %}"
+                               role="button">Подробно</a>
+                            <a class="btn btn-sm btn-outline-secondary" href="{% url 'articles:edit' object.id %}"
+                               role="button">Изменить</a>
+                            <a class="btn btn-sm btn-outline-danger" href="{% url 'articles:delete' object.id %}"
+                               role="button">Удалить</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

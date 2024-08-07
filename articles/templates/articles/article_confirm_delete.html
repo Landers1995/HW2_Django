@@ -8,14 +8,8 @@
                     <div class="card-body">
                         <form method="post">
                             {% csrf_token %}
-                            {{ form.as_p }}
-                            <button type="submit" class="btn btn-success">
-                                {% if object %}
-                                Сохранить
-                                {% else %}
-                                Создать
-                                {% endif %}
-                            </button>
+                            <p>Хотите удалить статью "{{ object.title }}"?</p>
+                            <button type="submit" class="btn btn-danger">Подтвердить</button>
                             <a class="btn btn-primary" href="{% url 'articles:list' %}" role="button">Отмена</a>
                         </form>
                     </div>

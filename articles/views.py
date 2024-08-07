@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, ListView, DetailView
+from django.views.generic import CreateView, UpdateView, ListView, DetailView, DeleteView
 from articles.models import Article
 
 
@@ -22,3 +22,8 @@ class ArticleListView(ListView):
 
 class ArticleDetailView(DetailView):
     model = Article
+
+
+class ArticleDeleteView(DetailView):
+    model = Article
+    success_url = reverse_lazy('articles:list')
