@@ -11,16 +11,8 @@ class ArticleCreateView(CreateView):
     fields = ('title', 'description', 'photo', 'created_at', 'is_publication')
     success_url = reverse_lazy('articles:list')
 
-    # def form_valid(self, form):
-    #     form.instance.slug = slugify(form.instance.title)
-    #     return super().form_valid(form)
-
     def form_valid(self, form):
-        if form.is_valid():
-            new_blog = form.save()
-            new_blog.slug = slugify(form)
-            new_blog.save()
-
+        form.instance.slug = slugify(form.instance.title)
         return super().form_valid(form)
 
 
