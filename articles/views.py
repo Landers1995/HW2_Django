@@ -1,5 +1,5 @@
 from django.urls.base import reverse
-
+from django.utils.text import slugify
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, ListView, DetailView, DeleteView
@@ -10,6 +10,18 @@ class ArticleCreateView(CreateView):
     model = Article
     fields = ('title', 'description', 'photo', 'created_at', 'is_publication')
     success_url = reverse_lazy('articles:list')
+
+    # def form_valid(self, form):
+    #     form.instance.slug = slugify(form.instance.title)
+    #     return super().form_valid(form)
+
+    def form_valid(self, form):
+        if form.is_valid():
+            new_blog = form.save()
+            new_blog.slug = slugify(form)
+            new_blog.save()
+
+        return super().form_valid(form)
 
 
 class ArticleUpdateView(UpdateView):
@@ -23,6 +35,9 @@ class ArticleUpdateView(UpdateView):
 
 class ArticleListView(ListView):
     model = Article
+
+    def get_queryset(self):
+        return Article.objects.filter(is_publication=True)
 
 
 class ArticleDetailView(DetailView):

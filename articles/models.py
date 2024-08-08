@@ -8,8 +8,9 @@ class Article(models.Model):
         help_text="Введите заголовок статьи"
     )
     slug = models.CharField(
-        max_length=50,
-        verbose_name="Индефикатор"
+        max_length=150,
+        verbose_name="Индефикатор",
+        unique=True,
     )
     description = models.TextField(
         verbose_name="Статья",
