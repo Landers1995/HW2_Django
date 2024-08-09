@@ -51,7 +51,9 @@ class Product(models.Model):
         related_name='products',
     )
     price = models.IntegerField(
-        default=0, verbose_name="Цена продукта", help_text="Введите цену продукта"
+        default=0,
+        verbose_name="Цена продукта",
+        help_text="Введите цену продукта",
     )
     # manufactured_at = models.DateField(
     #     blank=True,
