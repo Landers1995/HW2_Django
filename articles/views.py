@@ -15,6 +15,9 @@ class ArticleCreateView(CreateView):
         form.instance.slug = slugify(form.instance.title)
         return super().form_valid(form)
 
+    def get_success_url(self):
+        return reverse('articles:view', args=[self.object.pk])
+
 
 class ArticleUpdateView(UpdateView):
     model = Article
@@ -22,7 +25,8 @@ class ArticleUpdateView(UpdateView):
     success_url = reverse_lazy('articles:list')
 
     def get_success_url(self):
-        return reverse('articles:view', args=[self.kwargs.get('pk')])
+        # return reverse('articles:view', args=[self.object.pk])
+        return self.object.get_absolute_url()
 
 
 class ArticleListView(ListView):
