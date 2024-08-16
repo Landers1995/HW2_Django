@@ -9,24 +9,24 @@ from articles.models import Article
 class ArticleCreateView(CreateView):
     model = Article
     fields = ('title', 'description', 'photo', 'created_at', 'is_publication')
-    success_url = reverse_lazy('articles:list')
+    success_url = reverse_lazy('articles:article_list')
 
     def form_valid(self, form):
         form.instance.slug = slugify(form.instance.title)
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('articles:view', args=[self.object.pk])
+        return reverse('articles:article_view', args=[self.object.pk])
 
 
 class ArticleUpdateView(UpdateView):
     model = Article
     fields = ('title', 'description', 'photo', 'created_at', 'is_publication')
-    success_url = reverse_lazy('articles:list')
+    success_url = reverse_lazy('articles:article_list')
 
     def get_success_url(self):
-        # return reverse('articles:view', args=[self.object.pk])
-        return self.object.get_absolute_url()
+        return reverse('articles:article_view', args=[self.object.pk])
+        #return self.object.get_absolute_url()
 
 
 class ArticleListView(ListView):
@@ -48,7 +48,7 @@ class ArticleDetailView(DetailView):
 
 class ArticleDeleteView(DeleteView):
     model = Article
-    success_url = reverse_lazy('articles:list')
+    success_url = reverse_lazy('articles:article_list')
 
 
 def article_is_publication(request, pk):
@@ -60,6 +60,6 @@ def article_is_publication(request, pk):
 
     article_item.save()
 
-    return redirect(reverse('articles:list'))
+    return redirect(reverse('articles:article_list'))
 
 
