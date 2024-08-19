@@ -84,7 +84,7 @@ class Product(models.Model):
 
 
 class Version(models.Model):
-    product = models.ForeignKey(
+    product_name = models.ForeignKey(
         Product,
         verbose_name='Версия продукта',
         related_name='version',
@@ -115,7 +115,7 @@ class Version(models.Model):
     class Meta:
         verbose_name = "Версия"
         verbose_name_plural = "Версии"
-        ordering = ["product", 'number_version', "name_version"]
+        ordering = ["product_name", 'number_version', "name_version"]
 
     def __str__(self):
-        return self.product
+        return self.name_version
