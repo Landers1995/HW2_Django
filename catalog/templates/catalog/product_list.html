@@ -19,6 +19,7 @@
                     <a class="btn btn-sm btn-outline-secondary" href="{% url 'catalog:product_edit' product.pk %}" role="button">Изменить</a>
                     <a class="btn btn-sm btn-outline-danger" href="{% url 'catalog:product_delete' product.pk %}" role="button">Удалить</a>
                 </div>
+                <p class="text-start"> Актуальная версия продукта:{{ version.number_version }}</p>
             </div>
         </div>
         {%  endfor %}

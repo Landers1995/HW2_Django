@@ -49,6 +49,13 @@ class ProductUpdateView(UpdateView):
 class ProductListView(ListView):
     model = Product
 
+    def get_context_data(self, *args, **kwargs):
+        context_data = super().get_context_data(*args, **kwargs)
+        for product in context_data['product_list']:
+            active_version = Version.objects.filter(product=product, indicates_current_version=True).first()
+            product.active_version = active_version
+        return context_data
+
 # def products_list(requests):
 #     products = Product.objects.all()
 #     context = {'products': products}
