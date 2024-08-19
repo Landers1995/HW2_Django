@@ -1,5 +1,5 @@
 from django import forms
-from catalog.models import Product
+from catalog.models import Product, Version
 
 
 class ProductForm(forms.ModelForm):
@@ -12,7 +12,8 @@ class ProductForm(forms.ModelForm):
 
         for i in ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']:
             if i in cleaned_data:
-                raise ValueError('При создании товара нельзя использовать слова: казино, криптовалюта, крипта, биржа, дешево, бесплатно, обман, полиция, радар.')
+                raise ValueError('При создании товара нельзя использовать слова: казино, криптовалюта, крипта, биржа, дешево, бесплатно, обман, полиция, радар.'
+                )
 
         return cleaned_data
 
@@ -22,6 +23,13 @@ class ProductForm(forms.ModelForm):
         for i in ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']:
             if i in cleaned_data:
                 raise ValueError(
-                    'При создании товара нельзя использовать слова: казино, криптовалюта, крипта, биржа, дешево, бесплатно, обман, полиция, радар.')
+                    'При создании товара нельзя использовать слова: казино, криптовалюта, крипта, биржа, дешево, бесплатно, обман, полиция, радар.'
+                )
 
         return cleaned_data
+
+
+class VersionForm(forms.ModelForm):
+    class Meta:
+        model = Version
+        fields = '__all__'

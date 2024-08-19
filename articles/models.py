@@ -32,7 +32,10 @@ class Article(models.Model):
         verbose_name="Дата написания статьи",
         help_text="Укажите дату написания статьи",
     )
-    is_publication = models.BooleanField(verbose_name="Опубликовать?", default=True)
+    is_publication = models.BooleanField(
+        verbose_name="Опубликовать?",
+        default=True
+    )
     count_views = models.IntegerField(
         default=0,
         verbose_name="Количество просмотров статьи",
