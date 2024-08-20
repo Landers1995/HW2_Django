@@ -86,7 +86,7 @@ class Product(models.Model):
 class Version(models.Model):
     product_name = models.ForeignKey(
         Product,
-        verbose_name='Версия продукта',
+        verbose_name='Наименование продукта',
         related_name='version',
         on_delete=models.SET_NULL,
         blank=True,
