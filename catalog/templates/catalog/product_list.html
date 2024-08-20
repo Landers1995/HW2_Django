@@ -5,7 +5,7 @@
     <div class="row text-center">
         <a class="p-2 btn btn-outline-primary" href="{% url 'catalog:product_create' %}">Создать продукт</a>
         <div class="pb-4"></div>
-        {%  for product in object_list %}
+        {% for product in object_list %}
         <div class="col-4">
             <div class="card mb-4 box-shadow">
                 <div class="card-header">
@@ -15,14 +15,19 @@
                     <p class="text-start">{{ product.description | slice:100 }}</p>
                     <img class="card-img-top" src="{{ product.photo | media_filter }}" width="300" height="200">
                     <h1 class="card-title pricing-card-title"></h1>
-                    <a class="btn btn-primary" href="{% url 'catalog:product_detail' product.pk %}" role="button">Подробно</a>
-                    <a class="btn btn-sm btn-outline-secondary" href="{% url 'catalog:product_edit' product.pk %}" role="button">Изменить</a>
-                    <a class="btn btn-sm btn-outline-danger" href="{% url 'catalog:product_delete' product.pk %}" role="button">Удалить</a>
+                    <div class="btn-group">
+                        <a class="btn btn-sm btn-outline-secondary" href="{% url 'catalog:product_detail' product.pk %}"
+                           role="button">Подробно</a>
+                        <a class="btn btn-sm btn-outline-secondary" href="{% url 'catalog:product_edit' product.pk %}"
+                           role="button">Изменить</a>
+                        <a class="btn btn-sm btn-outline-danger" href="{% url 'catalog:product_delete' product.pk %}"
+                           role="button">Удалить</a>
+                    </div>
                 </div>
-                <p class="text-start"> Актуальная версия продукта:{{ version.number_version }}</p>
+                <p class="card-footer"> Актуальная версия продукта: {{ product.active_version }}</p>
             </div>
         </div>
-        {%  endfor %}
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
