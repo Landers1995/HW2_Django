@@ -4,9 +4,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, ListView, DetailView, DeleteView
 from articles.models import Article
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class ArticleCreateView(CreateView):
+class ArticleCreateView(CreateView, LoginRequiredMixin):
     model = Article
     fields = ('title', 'description', 'photo', 'created_at', 'is_publication')
     success_url = reverse_lazy('articles:article_list')
@@ -19,7 +20,7 @@ class ArticleCreateView(CreateView):
         return reverse('articles:article_view', args=[self.object.pk])
 
 
-class ArticleUpdateView(UpdateView):
+class ArticleUpdateView(UpdateView, LoginRequiredMixin):
     model = Article
     fields = ('title', 'description', 'photo', 'created_at', 'is_publication')
     success_url = reverse_lazy('articles:article_list')
@@ -29,14 +30,14 @@ class ArticleUpdateView(UpdateView):
         #return self.object.get_absolute_url()
 
 
-class ArticleListView(ListView):
+class ArticleListView(ListView, LoginRequiredMixin):
     model = Article
 
     def get_queryset(self):
         return Article.objects.filter(is_publication=True)
 
 
-class ArticleDetailView(DetailView):
+class ArticleDetailView(DetailView, LoginRequiredMixin):
     model = Article
 
     def get_object(self, queryset=None):
@@ -46,7 +47,7 @@ class ArticleDetailView(DetailView):
         return self.object
 
 
-class ArticleDeleteView(DeleteView):
+class ArticleDeleteView(DeleteView, LoginRequiredMixin):
     model = Article
     success_url = reverse_lazy('articles:article_list')
 
