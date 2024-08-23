@@ -143,8 +143,8 @@ LOGOUT_REDIRECT_URL = '/'
 
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = "il-travkin@yandex.ru"
-EMAIL_HOST_PASSWORD = "skqdyxfbarevhwvq"
+EMAIL_HOST_USER = "il-travkinskypro@yandex.ru"
+EMAIL_HOST_PASSWORD = "fglsuqbeqpbjdtyy"
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 

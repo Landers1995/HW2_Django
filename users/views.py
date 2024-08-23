@@ -4,9 +4,11 @@ from django.core.mail import send_mail
 from django.urls import reverse_lazy
 from users.forms import UserCreationForm, UserRegisterForm
 from users.models import User
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from config.settings import EMAIL_HOST_USER
+import string
+import random
 
 
 class UserCreateView(CreateView):
@@ -36,3 +38,22 @@ def email_verification(request, token):
     user.is_active = True
     user.save()
     return redirect(reverse('users:login'))
+
+
+def reset_password(request):
+
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        user = get_object_or_404(User, email=email)
+        characters = string.ascii_letters + string.digits + string.punctuation
+        password = ''.join(random.choice(characters) for _ in range(8))
+        user.set_password(password)
+        user.save()
+        send_mail(
+            subject = 'Сброс пароля',
+            message = f' Ваш новый пароль {password}',
+            from_email = EMAIL_HOST_USER,
+            recipient_list = [user.email]
+        )
+        return redirect(reverse('users:login'))
+    return render(request, 'users/reset_password.html')
