@@ -7,7 +7,7 @@ from articles.models import Article
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class ArticleCreateView(CreateView, LoginRequiredMixin):
+class ArticleCreateView(LoginRequiredMixin, CreateView):
     model = Article
     fields = ('title', 'description', 'photo', 'created_at', 'is_publication')
     success_url = reverse_lazy('articles:article_list')
@@ -20,7 +20,7 @@ class ArticleCreateView(CreateView, LoginRequiredMixin):
         return reverse('articles:article_view', args=[self.object.pk])
 
 
-class ArticleUpdateView(UpdateView, LoginRequiredMixin):
+class ArticleUpdateView(LoginRequiredMixin, UpdateView):
     model = Article
     fields = ('title', 'description', 'photo', 'created_at', 'is_publication')
     success_url = reverse_lazy('articles:article_list')
@@ -30,14 +30,14 @@ class ArticleUpdateView(UpdateView, LoginRequiredMixin):
         #return self.object.get_absolute_url()
 
 
-class ArticleListView(ListView, LoginRequiredMixin):
+class ArticleListView(LoginRequiredMixin, ListView):
     model = Article
 
     def get_queryset(self):
         return Article.objects.filter(is_publication=True)
 
 
-class ArticleDetailView(DetailView, LoginRequiredMixin):
+class ArticleDetailView(LoginRequiredMixin, DetailView):
     model = Article
 
     def get_object(self, queryset=None):
@@ -47,7 +47,7 @@ class ArticleDetailView(DetailView, LoginRequiredMixin):
         return self.object
 
 
-class ArticleDeleteView(DeleteView, LoginRequiredMixin):
+class ArticleDeleteView(LoginRequiredMixin, DeleteView):
     model = Article
     success_url = reverse_lazy('articles:article_list')
 

@@ -47,15 +47,24 @@ class UserResetPasswordView(PasswordResetView, StyleFormMixin):
 
     def form_valid(self, form):
         email = form.cleaned_data['email']
-        user = User.objects.get(email=email)
-        if user:
-            password = User.objects.make_random_password(length=10)
-            user.set_password(password)
-            user.save()
-            send_mail(
-                subject='Сброс пароля',
-                message=f' Ваш новый пароль {password}',
-                from_email=EMAIL_HOST_USER,
-                recipient_list=[user.email]
-            )
-        return redirect(reverse('users:login'))
+        try:
+            user = User.objects.get(email=email)
+            if user:
+                password = User.objects.make_random_password(length=10)
+                user.set_password(password)
+                user.save()
+                send_mail(
+                    subject='Сброс пароля',
+                    message=f' Ваш новый пароль {password}',
+                    from_email=EMAIL_HOST_USER,
+                    recipient_list=[user.email]
+                )
+            return redirect(reverse('users:login'))
+        except:
+            raise ValueError('Почта не найдена')
+            #return redirect(reverse('users:not_mail'))
+
+
+# class NotMailPageView(TemplateView):
+#     template_name = "users/not_mail.html"
+

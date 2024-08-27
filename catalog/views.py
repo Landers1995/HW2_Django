@@ -15,12 +15,15 @@ class HomePageView(TemplateView):
 #     return render(requests, "catalog/home.html")
 
 
-class ProductCreateView(CreateView, LoginRequiredMixin):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:product_list')
 
     def form_valid(self, form):
+        # form.instance.creator = self.request.user
+        # return super().form_valid()
+
         product = form.save()
         user = self.request.user
         product.creator = user
@@ -28,7 +31,7 @@ class ProductCreateView(CreateView, LoginRequiredMixin):
         return super().form_valid(form)
 
 
-class ProductUpdateView(UpdateView, LoginRequiredMixin):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('catalog:product_list')
@@ -54,7 +57,7 @@ class ProductUpdateView(UpdateView, LoginRequiredMixin):
             return self.render_to_response(self.get_context_data(form=form, formset=formset))
 
 
-class ProductListView(ListView, LoginRequiredMixin):
+class ProductListView(LoginRequiredMixin, ListView):
     model = Product
 
     def get_context_data(self, *args, **kwargs):
@@ -73,11 +76,11 @@ class ProductListView(ListView, LoginRequiredMixin):
 #     return render(requests, "product_list.html", context)
 
 
-class ProductDetailView(DetailView, LoginRequiredMixin):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
 
 
-class ProductDeleteView(DeleteView, LoginRequiredMixin):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:product_list')
 
