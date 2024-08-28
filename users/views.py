@@ -61,10 +61,9 @@ class UserResetPasswordView(PasswordResetView, StyleFormMixin):
                 )
             return redirect(reverse('users:login'))
         except:
-            raise ValueError('Почта не найдена')
-            #return redirect(reverse('users:not_mail'))
+            return redirect(reverse('users:not_mail'))
 
 
-# class NotMailPageView(TemplateView):
-#     template_name = "users/not_mail.html"
+class NotMailPageView(TemplateView):
+    template_name = "users/not_mail.html"
 
