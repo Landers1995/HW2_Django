@@ -66,7 +66,7 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         raise PermissionDenied
 
 
-class ProductListView(LoginRequiredMixin, ListView):
+class ProductListView(ListView):
     model = Product
 
     def get_context_data(self, *args, **kwargs):
@@ -85,7 +85,7 @@ class ProductListView(LoginRequiredMixin, ListView):
 #     return render(requests, "product_list.html", context)
 
 
-class ProductDetailView(LoginRequiredMixin, DetailView):
+class ProductDetailView(DetailView):
     model = Product
 
 

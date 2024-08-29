@@ -30,14 +30,14 @@ class ArticleUpdateView(LoginRequiredMixin, UpdateView):
         #return self.object.get_absolute_url()
 
 
-class ArticleListView(LoginRequiredMixin, ListView):
+class ArticleListView(ListView):
     model = Article
 
     def get_queryset(self):
         return Article.objects.filter(is_publication=True)
 
 
-class ArticleDetailView(LoginRequiredMixin, DetailView):
+class ArticleDetailView(DetailView):
     model = Article
 
     def get_object(self, queryset=None):
