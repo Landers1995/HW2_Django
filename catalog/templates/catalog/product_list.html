@@ -20,7 +20,7 @@
                     <div class="btn-group">
                         <a class="btn btn-sm btn-outline-secondary" href="{% url 'catalog:product_detail' product.pk %}"
                            role="button">Подробно</a>
-                        {% if user.is_authenticated %}
+                        {% if perms.catalog.can_edit_description and perms.catalog.can_edit_category and perms.catalog.can_edit_is_publication or user == product.creator%}
                         <a class="btn btn-sm btn-outline-secondary" href="{% url 'catalog:product_edit' product.pk %}"
                            role="button">Изменить</a>
                         <a class="btn btn-sm btn-outline-danger" href="{% url 'catalog:product_delete' product.pk %}"

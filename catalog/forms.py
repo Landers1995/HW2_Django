@@ -40,6 +40,23 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
         return cleaned_data
 
 
+class ProductModeratorForm(StyleFormMixin, forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ('description', 'category', 'is_publication',)
+
+        def clean_description(self):
+            cleaned_data = self.cleaned_data.get('description')
+
+            for i in ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']:
+                if i in cleaned_data.lower():
+                    raise ValueError(
+                        'При создании товара нельзя использовать слова: казино, криптовалюта, крипта, биржа, дешево, бесплатно, обман, полиция, радар.'
+                    )
+
+            return cleaned_data
+
+
 class VersionForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Version
