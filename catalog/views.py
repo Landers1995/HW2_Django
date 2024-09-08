@@ -3,9 +3,13 @@ from django.views.generic import ListView, DetailView, TemplateView, CreateView,
 from django.forms import inlineformset_factory
 from django.urls import reverse_lazy
 from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
-from catalog.models import Product, Version
+from catalog.models import Product, Version, Category
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.core.cache import cache
+
+from catalog.services import get_categories_from_cache
+from config import settings
 
 
 class HomePageView(TemplateView):
@@ -105,3 +109,9 @@ class ContactsPageView(TemplateView):
 
 # def contacts(requests):
 #     return render(requests, "catalog/contacts.html")
+
+class CategoryListView(ListView):
+    model = Category
+
+    def get_queryset(self):
+        return get_categories_from_cache()
